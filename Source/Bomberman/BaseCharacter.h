@@ -2,38 +2,29 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
 class UCameraComponent;
+class UInputComponent;
 
 UCLASS()
-class BOMBERMAN_API ABaseCharacter : public ACharacter
-{
-	GENERATED_BODY()
+class BOMBERMAN_API ABaseCharacter : public ACharacter {
+    GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	ABaseCharacter();
+    ABaseCharacter();
+
+    void Tick(float DeltaTime) override;
+    void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+    void BeginPlay() override;
 
 private:
-	void MoveRight(const float value);
-	void MoveForward(const float value);
-	void jumpAction();
+    UPROPERTY(EditAnywhere, Category= "Camera")
+    UCameraComponent* CameraComponent = nullptr;
 
-	UPROPERTY(EditAnywhere, Category= "Camera")
-		UCameraComponent* cameraComponent = nullptr;
-	
+    void MoveRight(float Value);
+    void MoveForward(float Value);
 };

@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public class BombermanEditorTarget : TargetRules
 {
-	public BombermanEditorTarget( TargetInfo Target) : base(Target)
-	{
-		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "Bomberman" } );
-	}
+    public BombermanEditorTarget(TargetInfo Target) : base(Target)
+    {
+        Type = TargetType.Editor;
+        DefaultBuildSettings = BuildSettingsVersion.V2;
+        ExtraModuleNames.AddRange(new string[] {"Bomberman"});
+    }
 }

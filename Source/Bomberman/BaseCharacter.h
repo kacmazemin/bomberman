@@ -27,4 +27,6 @@ private:
 
     void MoveRight(float Value);
     void MoveForward(float Value);
+
+    void PlantBomb();
 };

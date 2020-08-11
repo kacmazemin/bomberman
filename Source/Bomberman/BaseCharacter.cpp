@@ -2,6 +2,7 @@
 
 #include "BaseCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Private/Bomb.h"
 
 ABaseCharacter::ABaseCharacter()
 {
@@ -33,6 +34,9 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
     InputComponent->BindAxis("MoveForward", this, &ABaseCharacter::MoveForward);
     InputComponent->BindAxis("MoveRight", this, &ABaseCharacter::MoveRight);
+
+    InputComponent->BindAction("PlantBomb",EInputEvent::IE_Pressed, this, &ABaseCharacter::PlantBomb);
+
 }
 
 void ABaseCharacter::MoveRight(const float Value)
@@ -43,4 +47,10 @@ void ABaseCharacter::MoveRight(const float Value)
 void ABaseCharacter::MoveForward(const float Value)
 {
     AddMovementInput(GetActorForwardVector(), Value);
+}
+
+void ABaseCharacter::PlantBomb()
+{
+    FActorSpawnParameters SpawnParameters;
+    GetWorld()->SpawnActor<ABomb>(GetActorLocation(),FRotator::ZeroRotator, SpawnParameters);
 }

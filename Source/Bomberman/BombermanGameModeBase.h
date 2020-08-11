@@ -8,4 +8,7 @@
 UCLASS()
 class BOMBERMAN_API ABombermanGameModeBase : public AGameModeBase {
     GENERATED_BODY()
+
+public:
+    ABombermanGameModeBase();    
 };

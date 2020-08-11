@@ -22,7 +22,7 @@ void ABaseCharacter::BeginPlay()
     Super::BeginPlay();
 }
 
-void ABaseCharacter::Tick(float DeltaTime)
+void ABaseCharacter::Tick(const float DeltaTime)
 {
     Super::Tick(DeltaTime);
 }
@@ -33,20 +33,14 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
     InputComponent->BindAxis("MoveForward", this, &ABaseCharacter::MoveForward);
     InputComponent->BindAxis("MoveRight", this, &ABaseCharacter::MoveRight);
-
-    InputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ABaseCharacter::Jump);
 }
 
 void ABaseCharacter::MoveRight(const float Value)
 {
-    if(Value) {
-        AddMovementInput(GetActorRightVector(), Value);
-    }
+    AddMovementInput(GetActorRightVector(), Value);
 }
 
 void ABaseCharacter::MoveForward(const float Value)
 {
-    if(Value) {
-        AddMovementInput(GetActorForwardVector(), Value);
-    }
+    AddMovementInput(GetActorForwardVector(), Value);
 }

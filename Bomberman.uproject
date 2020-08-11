@@ -17,6 +17,181 @@
 		{
 			"Name": "RiderLink",
 			"Enabled": true
+		},
+		{
+			"Name": "Paper2D",
+			"Enabled": false
+		},
+		{
+			"Name": "OnlineSubsystemGooglePlay",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Android"
+			]
+		},
+		{
+			"Name": "AndroidPermission",
+			"Enabled": false
+		},
+		{
+			"Name": "GooglePAD",
+			"Enabled": false
+		},
+		{
+			"Name": "AudioCapture",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeap",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Lumin",
+				"Mac",
+				"Win64"
+			]
+		},
+		{
+			"Name": "MagicLeapMedia",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Lumin"
+			]
+		},
+		{
+			"Name": "MagicLeapPassableWorld",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Lumin",
+				"Mac",
+				"Win64"
+			]
+		},
+		{
+			"Name": "Gauntlet",
+			"Enabled": true
+		},
+		{
+			"Name": "BlueprintFileUtils",
+			"Enabled": true
+		},
+		{
+			"Name": "AndroidDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "ExampleDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "IOSDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "WindowsDeviceProfileSelector",
+			"Enabled": true
+		},
+		{
+			"Name": "FacialAnimation",
+			"Enabled": false
+		},
+		{
+			"Name": "MatineeToLevelSequence",
+			"Enabled": false
+		},
+		{
+			"Name": "SkeletalReduction",
+			"Enabled": false
+		},
+		{
+			"Name": "UObjectPlugin",
+			"Enabled": false
+		},
+		{
+			"Name": "AppleImageUtils",
+			"Enabled": false
+		},
+		{
+			"Name": "BackChannel",
+			"Enabled": false
+		},
+		{
+			"Name": "NiagaraExtras",
+			"Enabled": true
+		},
+		{
+			"Name": "ArchVisCharacter",
+			"Enabled": false
+		},
+		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "AlembicImporter",
+			"Enabled": false
+		},
+		{
+			"Name": "GLTFImporter",
+			"Enabled": true
+		},
+		{
+			"Name": "MLSDK",
+			"Enabled": false
+		},
+		{
+			"Name": "AvfMedia",
+			"Enabled": false
+		},
+		{
+			"Name": "WebMMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "AppleMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "WindowsMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "GoogleCloudMessaging",
+			"Enabled": false
+		},
+		{
+			"Name": "KDevelopSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "CodeLiteSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "PlasticSourceControl",
+			"Enabled": false
+		},
+		{
+			"Name": "SubversionSourceControl",
+			"Enabled": false
+		},
+		{
+			"Name": "OculusVR",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win32",
+				"Win64",
+				"Android"
+			]
+		},
+		{
+			"Name": "SteamVR",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win32",
+				"Win64",
+				"Linux",
+				"Mac"
+			]
 		}
 	]
 }

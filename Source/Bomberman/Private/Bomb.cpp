@@ -25,8 +25,6 @@ ABomb::ABomb()
 void ABomb::BeginPlay()
 {
 	Super::BeginPlay();
-	SetLifeSpan(5);
-
 }
 
 // Called every frame

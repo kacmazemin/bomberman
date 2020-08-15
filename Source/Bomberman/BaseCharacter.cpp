@@ -51,6 +51,23 @@ void ABaseCharacter::MoveForward(const float Value)
 
 void ABaseCharacter::PlantBomb()
 {
-    FActorSpawnParameters SpawnParameters;
-    GetWorld()->SpawnActor<ABomb>(GetActorLocation(),FRotator::ZeroRotator, SpawnParameters);
+    if(!bomb)
+    {
+        FActorSpawnParameters SpawnParameters;
+        bomb = GetWorld()->SpawnActor<ABomb>(GetActorLocation(),FRotator::ZeroRotator, SpawnParameters);
+
+        FTimerHandle TimerHandle;
+        FTimerDelegate TimerDelegate;
+        
+        GetWorldTimerManager().SetTimer(TimerHandle, [this]()
+        {
+            bomb->Destroy();
+            bomb = nullptr;
+        }, 5.f, false);
+    }
+}
+
+void ABaseCharacter::RemoveBomb()
+{
+    
 }

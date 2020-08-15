@@ -7,6 +7,7 @@
 
 class UCameraComponent;
 class UInputComponent;
+class ABomb;
 
 UCLASS()
 class BOMBERMAN_API ABaseCharacter : public ACharacter {
@@ -22,6 +23,10 @@ protected:
     void BeginPlay() override;
 
 private:
+    
+    UPROPERTY()
+    ABomb* bomb;    
+    
     UPROPERTY(EditAnywhere, Category= "Camera")
     UCameraComponent* CameraComponent = nullptr;
 
@@ -29,4 +34,5 @@ private:
     void MoveForward(float Value);
 
     void PlantBomb();
+    void RemoveBomb();
 };

@@ -34,5 +34,4 @@ private:
     void MoveForward(float Value);
 
     void PlantBomb();
-    void RemoveBomb();
 };

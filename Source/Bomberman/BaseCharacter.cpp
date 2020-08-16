@@ -53,21 +53,17 @@ void ABaseCharacter::PlantBomb()
 {
     if(!bomb)
     {
-        FActorSpawnParameters SpawnParameters;
-        bomb = GetWorld()->SpawnActor<ABomb>(GetActorLocation(),FRotator::ZeroRotator, SpawnParameters);
+        bomb = GetWorld()->SpawnActorDeferred<ABomb>(ABomb::StaticClass(), GetActorTransform());
 
+        bomb->Init(5);
+        bomb->FinishSpawning(GetActorTransform());
+        
         FTimerHandle TimerHandle;
         FTimerDelegate TimerDelegate;
-        
         GetWorldTimerManager().SetTimer(TimerHandle, [this]()
         {
             bomb->Destroy();
             bomb = nullptr;
         }, 5.f, false);
     }
-}
-
-void ABaseCharacter::RemoveBomb()
-{
-    
 }

@@ -18,16 +18,19 @@ public:
 
     void Tick(float DeltaTime) override;
     void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
+    
+    UPROPERTY(BlueprintReadWrite)
+    ABomb* bomb = nullptr;
+    
 protected:
     void BeginPlay() override;
 
 private:
     
-    UPROPERTY()
-    ABomb* bomb;    
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<ABomb> bombProperty = nullptr;
     
-    UPROPERTY(EditAnywhere, Category= "Camera")
+    UPROPERTY(EditAnywhere, Category = "Camera")
     UCameraComponent* CameraComponent = nullptr;
 
     void MoveRight(float Value);

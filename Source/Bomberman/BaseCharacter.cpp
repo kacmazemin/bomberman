@@ -53,7 +53,8 @@ void ABaseCharacter::PlantBomb()
 {
     if(!bomb)
     {
-        bomb = GetWorld()->SpawnActorDeferred<ABomb>(ABomb::StaticClass(), GetActorTransform());
+        FTransform transform = GetActorTransform();
+        bomb = GetWorld()->SpawnActorDeferred<ABomb>(bombProperty, GetActorTransform());
 
         bomb->Init(5);
         bomb->FinishSpawning(GetActorTransform());
@@ -64,6 +65,7 @@ void ABaseCharacter::PlantBomb()
         {
             bomb->Destroy();
             bomb = nullptr;
-        }, 5.f, false);
+        }, 20.f, false);
     }
+    
 }

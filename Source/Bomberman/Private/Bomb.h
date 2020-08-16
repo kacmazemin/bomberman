@@ -6,7 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "Bomb.generated.h"
 
-class UStaticMeshComponent;
+
+enum class ExplosionWay
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	MIDDLE
+};
 
 UCLASS()
 class ABomb : public AActor
@@ -27,10 +35,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = "Mesh")
-	UStaticMeshComponent* bombMesh = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	UStaticMeshComponent* bombMesh;
+	
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true), Category = "Mesh")
+	class UInstancedStaticMeshComponent* cubeInstancedMeshComponent = nullptr;
 
 private:
 	int bombLevel = 1;
 
+	void GenerateSingleExplosion(ExplosionWay explosionWay);
 };

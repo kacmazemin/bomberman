@@ -17,6 +17,8 @@ public:
 	// Sets default values for this actor's properties
 	ABomb();
 
+	void Init(const int bombPowerLevel = 1);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -27,5 +29,8 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMeshComponent* bombMesh = nullptr;
+
+private:
+	int bombLevel = 1;
 
 };

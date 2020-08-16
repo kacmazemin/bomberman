@@ -18,8 +18,14 @@ ABomb::ABomb()
 	{
 		bombMesh->SetStaticMesh(BombMeshAsset.Object);
 	}
+}
 
-}	
+void ABomb::Init(const int bombPowerLevel)
+{
+	bombLevel = bombPowerLevel;
+
+	UE_LOG(LogTemp, Display, TEXT("BOMB POWER LEVEL %d"), bombLevel);
+}
 
 // Called when the game starts or when spawned
 void ABomb::BeginPlay()

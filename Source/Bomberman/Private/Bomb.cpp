@@ -13,6 +13,8 @@ ABomb::ABomb()
 	
 	bombMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BombMesh"));
 	bombMesh->SetWorldLocation(FVector(GetActorLocation().X, GetActorLocation().Y,-50));
+
+	startLocation = GetActorLocation();
 	cubeInstancedMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("InstanceStaticMesh"));
 	cubeInstancedMeshComponent->SetHiddenInGame(true,false);
 }
@@ -28,7 +30,6 @@ void ABomb::Init(const int bombPowerLevel)
     {
 		bombMesh->SetHiddenInGame(true,false);
 		cubeInstancedMeshComponent->SetHiddenInGame(false);
-		GenerateSingleExplosion(ExplosionWay::MIDDLE);
         GenerateSingleExplosion(ExplosionWay::UP);
         GenerateSingleExplosion(ExplosionWay::DOWN);
         GenerateSingleExplosion(ExplosionWay::RIGHT);
@@ -51,8 +52,11 @@ void ABomb::Tick(float DeltaTime)
 
 void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 {
+	FVector targetLocation;
+	float size = bombLevel * 100;
+	
 	FTransform transform;
-
+	
 	cubeInstancedMeshComponent->GetInstanceTransform(0, transform, false);
 	auto meshDistance = transform.GetScale3D().X * cubeInstancedMeshComponent->GetStaticMesh()->GetBounds().GetBox().GetSize().X;
 	float X = transform.GetLocation().X;
@@ -76,12 +80,9 @@ void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 			transform.SetLocation(FVector(X + meshDistance, Y,meshDistance * .5));
 			cubeInstancedMeshComponent->AddInstance(transform);
 			break;
-		case ExplosionWay::MIDDLE:
 		default:
 			transform.SetLocation(FVector(GetActorLocation().X, GetActorLocation().Y,meshDistance * .5));
 			cubeInstancedMeshComponent->AddInstance(transform);
 			break;
 	}
-	
-	
 }

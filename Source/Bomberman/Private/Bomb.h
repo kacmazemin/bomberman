@@ -13,7 +13,6 @@ enum class ExplosionWay
 	DOWN,
 	LEFT,
 	RIGHT,
-	MIDDLE
 };
 
 UCLASS()
@@ -42,7 +41,10 @@ public:
 	class UInstancedStaticMeshComponent* cubeInstancedMeshComponent = nullptr;
 
 private:
+
 	int bombLevel = 1;
+	
+	FVector startLocation;
 
 	void GenerateSingleExplosion(ExplosionWay explosionWay);
 };

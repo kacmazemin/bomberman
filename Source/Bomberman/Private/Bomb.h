@@ -42,9 +42,15 @@ public:
 
 private:
 
+	bool isStartExplosion = false;
 	int bombLevel = 1;
-	
+
 	FVector startLocation;
+	FTransform startTransform;
+	FTransform upTransform;
+	FTransform downTransform;
+	FTransform leftTransform;
+	FTransform rightTransform;
 
 	void GenerateSingleExplosion(ExplosionWay explosionWay);
 };

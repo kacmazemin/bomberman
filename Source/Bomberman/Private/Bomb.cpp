@@ -12,11 +12,8 @@ ABomb::ABomb()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	bombMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BombMesh"));
-	bombMesh->SetWorldLocation(FVector(GetActorLocation().X, GetActorLocation().Y,-50));
-
-	startLocation = GetActorLocation();
 	cubeInstancedMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("InstanceStaticMesh"));
-	cubeInstancedMeshComponent->SetHiddenInGame(true,false);
+
 }
 
 void ABomb::Init(const int bombPowerLevel)
@@ -29,11 +26,13 @@ void ABomb::Init(const int bombPowerLevel)
 	GetWorldTimerManager().SetTimer(TimerHandle, [this]()
     {
 		bombMesh->SetHiddenInGame(true,false);
-		cubeInstancedMeshComponent->SetHiddenInGame(false);
-        GenerateSingleExplosion(ExplosionWay::UP);
-        GenerateSingleExplosion(ExplosionWay::DOWN);
-        GenerateSingleExplosion(ExplosionWay::RIGHT);
-        GenerateSingleExplosion(ExplosionWay::LEFT);
+		
+		cubeInstancedMeshComponent->AddInstance(startTransform);
+		cubeInstancedMeshComponent->AddInstance(startTransform);
+		cubeInstancedMeshComponent->AddInstance(startTransform);
+		cubeInstancedMeshComponent->AddInstance(startTransform);
+
+		isStartExplosion = true;
     }, 3.f, false);
 
 }
@@ -42,47 +41,51 @@ void ABomb::Init(const int bombPowerLevel)
 void ABomb::BeginPlay()
 {
 	Super::BeginPlay();
+
+	startTransform = GetActorTransform();
+	startLocation = FVector(startTransform.GetLocation().X, startTransform.GetLocation().Y,50);
 }
 
 // Called every frame
 void ABomb::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	if(isStartExplosion)
+	{
+		GenerateSingleExplosion(ExplosionWay::UP);
+		GenerateSingleExplosion(ExplosionWay::DOWN);
+		GenerateSingleExplosion(ExplosionWay::LEFT);
+		GenerateSingleExplosion(ExplosionWay::RIGHT);
+	}
+	
 }
 
 void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 {
-	FVector targetLocation;
-	float size = bombLevel * 100;
-	
-	FTransform transform;
-	
-	cubeInstancedMeshComponent->GetInstanceTransform(0, transform, false);
-	auto meshDistance = transform.GetScale3D().X * cubeInstancedMeshComponent->GetStaticMesh()->GetBounds().GetBox().GetSize().X;
-	float X = transform.GetLocation().X;
-	float Y = transform.GetLocation().Y;
-	
+	float size = 1;
 	switch (explosionWay)
 	{
 		case ExplosionWay::UP:
-			transform.SetLocation(FVector(X,  Y + meshDistance,meshDistance * .5));
-			cubeInstancedMeshComponent->AddInstance(transform);
+			cubeInstancedMeshComponent->GetInstanceTransform(0, upTransform);
+			upTransform.SetLocation(FVector(startLocation.X, upTransform.GetLocation().Y + size  , startLocation.Z + 50));
+			cubeInstancedMeshComponent->UpdateInstanceTransform(0, upTransform, false, true);
 			break;
 		case ExplosionWay::DOWN:
-			transform.SetLocation(FVector(X, Y - meshDistance,meshDistance * .5));
-			cubeInstancedMeshComponent->AddInstance(transform);
+			cubeInstancedMeshComponent->GetInstanceTransform(1, downTransform);
+			downTransform.SetLocation(FVector(startLocation.X, downTransform.GetLocation().Y - size , startLocation.Z + 50));
+			cubeInstancedMeshComponent->UpdateInstanceTransform(1, downTransform, false, true);
 			break;
 		case ExplosionWay::LEFT:
-			transform.SetLocation(FVector(X - meshDistance, Y,meshDistance * .5));
-			cubeInstancedMeshComponent->AddInstance(transform);
+			cubeInstancedMeshComponent->GetInstanceTransform(2, leftTransform);
+			leftTransform.SetLocation(FVector(leftTransform.GetLocation().X - size , startLocation.Y, startLocation.Z + 50));
+			cubeInstancedMeshComponent->UpdateInstanceTransform(2, leftTransform, false, true);
 			break;
 		case ExplosionWay::RIGHT:
-			transform.SetLocation(FVector(X + meshDistance, Y,meshDistance * .5));
-			cubeInstancedMeshComponent->AddInstance(transform);
+			cubeInstancedMeshComponent->GetInstanceTransform(3, rightTransform);
+			rightTransform.SetLocation(FVector(rightTransform.GetLocation().X + size , startLocation.Y, startLocation.Z + 50));
+			cubeInstancedMeshComponent->UpdateInstanceTransform(3, rightTransform, false, true);
+		default: 
 			break;
-		default:
-			transform.SetLocation(FVector(GetActorLocation().X, GetActorLocation().Y,meshDistance * .5));
-			cubeInstancedMeshComponent->AddInstance(transform);
-			break;
-	}
+	};
 }

@@ -35,8 +35,6 @@ void ABomb::Init(const int bombPowerLevel)
         GenerateSingleExplosion(ExplosionWay::LEFT);
     }, 3.f, false);
 
-
-	//UE_LOG(LogTemp, Display, TEXT("BOMB POWER LEVEL %d"), bombLevel);
 }
 
 // Called when the game starts or when spawned

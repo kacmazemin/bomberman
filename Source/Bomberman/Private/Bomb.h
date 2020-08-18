@@ -44,7 +44,8 @@ private:
 
 	bool isStartExplosion = false;
 	int bombLevel = 1;
-
+	float speed = 15.0f;
+	
 	FVector startLocation;
 	FTransform startTransform;
 	FTransform upTransform;

@@ -63,27 +63,29 @@ void ABomb::Tick(float DeltaTime)
 
 void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 {
-	float size = 1;
 	switch (explosionWay)
 	{
 		case ExplosionWay::UP:
 			cubeInstancedMeshComponent->GetInstanceTransform(0, upTransform);
-			upTransform.SetLocation(FVector(startLocation.X, upTransform.GetLocation().Y + size  , startLocation.Z + 50));
-			cubeInstancedMeshComponent->UpdateInstanceTransform(0, upTransform, false, true);
+			upTransform.SetLocation(FVector(startLocation.X, upTransform.GetLocation().Y + speed  , startLocation.Z + 50));
+			if(upTransform.GetLocation().Y < startLocation.Y + ( 100 * bombLevel ) )
+			{
+				cubeInstancedMeshComponent->UpdateInstanceTransform(0, upTransform, false, true);
+			}
 			break;
 		case ExplosionWay::DOWN:
 			cubeInstancedMeshComponent->GetInstanceTransform(1, downTransform);
-			downTransform.SetLocation(FVector(startLocation.X, downTransform.GetLocation().Y - size , startLocation.Z + 50));
+			downTransform.SetLocation(FVector(startLocation.X, downTransform.GetLocation().Y - speed , startLocation.Z + 50));
 			cubeInstancedMeshComponent->UpdateInstanceTransform(1, downTransform, false, true);
 			break;
 		case ExplosionWay::LEFT:
 			cubeInstancedMeshComponent->GetInstanceTransform(2, leftTransform);
-			leftTransform.SetLocation(FVector(leftTransform.GetLocation().X - size , startLocation.Y, startLocation.Z + 50));
+			leftTransform.SetLocation(FVector(leftTransform.GetLocation().X - speed , startLocation.Y, startLocation.Z + 50));
 			cubeInstancedMeshComponent->UpdateInstanceTransform(2, leftTransform, false, true);
 			break;
 		case ExplosionWay::RIGHT:
 			cubeInstancedMeshComponent->GetInstanceTransform(3, rightTransform);
-			rightTransform.SetLocation(FVector(rightTransform.GetLocation().X + size , startLocation.Y, startLocation.Z + 50));
+			rightTransform.SetLocation(FVector(rightTransform.GetLocation().X + speed , startLocation.Y, startLocation.Z + 50));
 			cubeInstancedMeshComponent->UpdateInstanceTransform(3, rightTransform, false, true);
 		default: 
 			break;

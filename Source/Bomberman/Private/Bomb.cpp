@@ -68,6 +68,7 @@ void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 		case ExplosionWay::UP:
 			cubeInstancedMeshComponent->GetInstanceTransform(0, upTransform);
 			upTransform.SetLocation(FVector(startLocation.X, upTransform.GetLocation().Y + speed  , startLocation.Z + 50));
+		//todo add collisionCheck 
 			if(upTransform.GetLocation().Y < startLocation.Y + ( 100 * bombLevel ) )
 			{
 				cubeInstancedMeshComponent->UpdateInstanceTransform(0, upTransform, false, true);
@@ -76,17 +77,26 @@ void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 		case ExplosionWay::DOWN:
 			cubeInstancedMeshComponent->GetInstanceTransform(1, downTransform);
 			downTransform.SetLocation(FVector(startLocation.X, downTransform.GetLocation().Y - speed , startLocation.Z + 50));
-			cubeInstancedMeshComponent->UpdateInstanceTransform(1, downTransform, false, true);
+			if(downTransform.GetLocation().Y > startLocation.Y - (100 * bombLevel))
+			{
+				cubeInstancedMeshComponent->UpdateInstanceTransform(1, downTransform, false, true);
+			}
 			break;
 		case ExplosionWay::LEFT:
 			cubeInstancedMeshComponent->GetInstanceTransform(2, leftTransform);
 			leftTransform.SetLocation(FVector(leftTransform.GetLocation().X - speed , startLocation.Y, startLocation.Z + 50));
-			cubeInstancedMeshComponent->UpdateInstanceTransform(2, leftTransform, false, true);
+			if(leftTransform.GetLocation().X > startLocation.X - (100 * bombLevel))
+			{
+				cubeInstancedMeshComponent->UpdateInstanceTransform(2, leftTransform, false, true);
+			}
 			break;
 		case ExplosionWay::RIGHT:
 			cubeInstancedMeshComponent->GetInstanceTransform(3, rightTransform);
 			rightTransform.SetLocation(FVector(rightTransform.GetLocation().X + speed , startLocation.Y, startLocation.Z + 50));
-			cubeInstancedMeshComponent->UpdateInstanceTransform(3, rightTransform, false, true);
+			if(rightTransform.GetLocation().X < startLocation.X + (100 * bombLevel))
+			{
+				cubeInstancedMeshComponent->UpdateInstanceTransform(3, rightTransform, false, true);
+			}
 		default: 
 			break;
 	};

@@ -56,7 +56,7 @@ void ABaseCharacter::PlantBomb()
         FTransform transform = GetActorTransform();
         bomb = GetWorld()->SpawnActorDeferred<ABomb>(bombProperty, GetActorTransform());
 
-        bomb->Init(5);
+        bomb->Init(2);
         bomb->FinishSpawning(GetActorTransform());
         
         FTimerHandle TimerHandle;

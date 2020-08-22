@@ -65,7 +65,7 @@ void ABaseCharacter::PlantBomb()
         {
             bomb->Destroy();
             bomb = nullptr;
-        }, 20.f, false);
+        }, 5.f, false);
     }
     
 }

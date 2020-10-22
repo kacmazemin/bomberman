@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Bomb.generated.h"
 
+class UBoxComponent;
 
 enum class ExplosionWay
 {
@@ -45,6 +46,8 @@ private:
 	bool isStartExplosion = false;
 	int bombLevel = 1;
 	float speed = 15.0f;
+
+	TMap<ExplosionWay, UBoxComponent*> BoxComponents;
 	
 	FVector startLocation;
 	FTransform startTransform;
@@ -54,4 +57,5 @@ private:
 	FTransform rightTransform;
 
 	void GenerateSingleExplosion(ExplosionWay explosionWay);
+	void GenerateBoxComponent(ExplosionWay explosionWay);
 };

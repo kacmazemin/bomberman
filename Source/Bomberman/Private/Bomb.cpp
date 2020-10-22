@@ -4,6 +4,7 @@
 #include "Bomb.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 ABomb::ABomb()
@@ -12,7 +13,7 @@ ABomb::ABomb()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	bombMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BombMesh"));
-	cubeInstancedMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("InstanceStaticMesh"));
+	// cubeInstancedMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("InstanceStaticMesh"));
 
 }
 
@@ -26,11 +27,13 @@ void ABomb::Init(const int bombPowerLevel)
 	GetWorldTimerManager().SetTimer(TimerHandle, [this]()
     {
 		bombMesh->SetHiddenInGame(true,false);
-		
-		cubeInstancedMeshComponent->AddInstance(startTransform);
-		cubeInstancedMeshComponent->AddInstance(startTransform);
-		cubeInstancedMeshComponent->AddInstance(startTransform);
-		cubeInstancedMeshComponent->AddInstance(startTransform);
+
+		GenerateBoxComponent(ExplosionWay::UP);
+
+		// cubeInstancedMeshComponent->AddInstance(startTransform);
+		// cubeInstancedMeshComponent->AddInstance(startTransform);
+		// cubeInstancedMeshComponent->AddInstance(startTransform);
+		// cubeInstancedMeshComponent->AddInstance(startTransform);
 
 		isStartExplosion = true;
     }, 3.f, false);
@@ -53,10 +56,10 @@ void ABomb::Tick(float DeltaTime)
 	
 	if(isStartExplosion)
 	{
-		GenerateSingleExplosion(ExplosionWay::UP);
-		GenerateSingleExplosion(ExplosionWay::DOWN);
-		GenerateSingleExplosion(ExplosionWay::LEFT);
-		GenerateSingleExplosion(ExplosionWay::RIGHT);
+		// GenerateSingleExplosion(ExplosionWay::UP);
+		// GenerateSingleExplosion(ExplosionWay::DOWN);
+		// GenerateSingleExplosion(ExplosionWay::LEFT);
+		// GenerateSingleExplosion(ExplosionWay::RIGHT);
 	}
 	
 }
@@ -100,4 +103,37 @@ void ABomb::GenerateSingleExplosion(ExplosionWay explosionWay)
 		default: 
 			break;
 	};
+}
+
+void ABomb::GenerateBoxComponent(ExplosionWay explosionWay)
+{
+
+	auto boxComponent = NewObject<UBoxComponent>(this,  TEXT("Some Box"));
+	boxComponent->CreationMethod = EComponentCreationMethod::Native;
+	boxComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	boxComponent->RegisterComponent();
+	boxComponent->SetHiddenInGame(false);
+	boxComponent->SetVisibility(true);
+
+	FCollisionQueryParams fParam;
+	FHitResult result;
+	FVector start;
+	FVector end;
+	FQuat quat;
+
+	
+	switch (explosionWay)
+	{
+		case ExplosionWay::UP:
+			BoxComponents.Add(ExplosionWay::UP, boxComponent);
+			boxComponent->SweepComponent(result,start,end,quat,FCollisionShape::MakeBox(boxComponent->GetComponentLocation()),false);
+			break;
+		case ExplosionWay::DOWN:
+			break;
+		case ExplosionWay::LEFT:
+			break;
+		case ExplosionWay::RIGHT:
+			break;
+		default: ;
+	}
 }
